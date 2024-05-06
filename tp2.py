@@ -1,5 +1,6 @@
 import math
 import sys
+import os
 
 
 def inicializar_memo(n):
@@ -129,8 +130,13 @@ def main():
         print("Ejemplo de uso: python3 tp2.py 500.txt")
         return
     
-    path = sys.argv[1]
-    filename = path.split(".")[0] + ".txt"
+    # Aquí es donde especificas las carpetas anidadas
+    folder_path = './tests_catedra/data/'
+    file_name = sys.argv[1]
+    
+    # Concatenas la ruta del directorio actual, las carpetas y el nombre del archivo
+    path = os.path.join(os.getcwd(), folder_path, file_name)
+    filename = file_name.split(".")[0] + ".txt"
     
     enemigos_eliminados, orden_recargar_atacar = tp2_batallas_solver(path)
 
@@ -138,6 +144,5 @@ def main():
 
     print("\nArchivo procesado con éxito!")
     print(f"Los resultados se encuentran en el archivo solved_{filename}")
-
 
 main()
