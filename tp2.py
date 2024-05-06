@@ -10,13 +10,15 @@ def inicializar_memo(n):
 
 
 def reconstruir_solucion(memo):
-    pass
+    enemigos_eliminados = max(memo[len(memo) - 1])
+    
+
+    return enemigos_eliminados, []
 
 
 def tp2_dp(lista_xi, lista_fj):
     n = len(lista_xi)
     OPT = inicializar_memo(n)
-    enemigos_eliminados = 0
 
     for minuto_actual in range(1, n+1):
         for minuto_origen in range(n):
@@ -44,14 +46,15 @@ def tp2_dp(lista_xi, lista_fj):
 
             OPT[minuto_actual_][minuto_origen] = maximo_batallas_anteriores + ataque_actual
 
-    print(OPT)
-
-    return enemigos_eliminados, OPT
+    return OPT
 
 
 def tp2(x, f):
-    enemigos_eliminados, memo = tp2_dp(x, f)
-    orden_recargar_atacar = reconstruir_solucion(memo)
+    memo = tp2_dp(x, f)
+
+    print(memo)
+
+    enemigos_eliminados, orden_recargar_atacar = reconstruir_solucion(memo)
     return enemigos_eliminados, orden_recargar_atacar
 
 
