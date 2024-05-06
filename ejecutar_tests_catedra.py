@@ -1,3 +1,4 @@
+import time
 from tp2 import tp2_batallas_solver
 
 # (file, expected_sum)
@@ -15,7 +16,15 @@ amounts = [
 ]
 
 for a in amounts:
+    start_time = time.time()
+
     sum_, _ = tp2_batallas_solver(f"tests_catedra\\data\\{a[0]}.txt")
+    
+    end_time = time.time()
+    execution_time = end_time - start_time
+    
     print(f"'Cantidad de enemigos abatidos' for value '{a}': {sum_} - ", end="")
     assert sum_ == a[1]
     print("OK!")
+
+    print("Execution time:", execution_time, "seconds\n")
