@@ -133,19 +133,4 @@ def main():
     print(f"Los resultados se encuentran en el archivo solved_{filename}")
 
 
-# def main():
-#     # 1413 ok
-#     x = [271,533,916,656, 664]
-#     f = [ 21,671,749,833,1543]
-
-#     # 2118 ok
-#     # x = [254,515, 647, 454, 126, 406,  69,  48, 781, 920]
-#     # f = [170,312,1000,2131,2975,3026,3035,3402,3463,3496]
-
-#     enemigos_eliminados, orden_recargar_atacar = tp2(x, f)
-
-#     print("Enemigos eliminados: ", enemigos_eliminados)
-#     print("Orden de recarga/ataque: ", orden_recargar_atacar)
-
-
 main()
