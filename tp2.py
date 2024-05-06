@@ -1,3 +1,6 @@
+import sys
+
+
 def inicializar_memo(n):
     memo = []
     z = -1
@@ -98,6 +101,38 @@ def tp2_batallas_solver(file_path):
     return tp2(x_values, function_values)
 
 
+def escribir_resultados(filename, enemigos_eliminados, orden_recargar_atacar):
+    with open(f"solved_{filename}", 'w+') as resultados_file:
+        resultados_file.write(filename)
+
+        estrategia = ""
+        for i in range(len(orden_recargar_atacar)):
+            orden = orden_recargar_atacar[i]
+            estrategia += orden
+            if i < len(orden_recargar_atacar) - 1:
+                estrategia += ", "
+
+        resultados_file.write("\nEstrategia: " + estrategia)
+        resultados_file.write("\nCantidad de tropas eliminadas: " + str(enemigos_eliminados))
+        resultados_file.write("\n")
+
+
+def main():
+    if len(sys.argv) != 2:
+        print("Ejemplo de uso: python3 tp2.py 500.txt")
+        return
+    
+    path = sys.argv[1]
+    filename = path.split(".")[0] + ".txt"
+    
+    enemigos_eliminados, orden_recargar_atacar = tp2_batallas_solver(path)
+
+    escribir_resultados(filename, enemigos_eliminados, orden_recargar_atacar)
+
+    print("\nArchivo procesado con éxito!")
+    print(f"Los resultados se encuentran en el archivo solved_{filename}")
+
+
 # def main():
 #     # 1413 ok
 #     x = [271,533,916,656, 664]
@@ -113,4 +148,4 @@ def tp2_batallas_solver(file_path):
 #     print("Orden de recarga/ataque: ", orden_recargar_atacar)
 
 
-# main()
+main()
