@@ -11,10 +11,24 @@
 
 <code>python tp2.py NUMERO_DE_BATALLAS.txt</code>
 
+----
+
 ## Ejecutar tests de la cátedra
+
+Se corren tambien las pruebas de tiempo.
 
 <code>python ejecutar_tests_catedra.py</code>
 
+----
+
 ## Ejecutar las pruebas de tiempo del algoritmo
 
+Estas pruebas se pueden correr para cualquier archivo.
+
 <code>python pruebas_tiempo_algoritmo.py NUMERO_DE_BATALLAS.txt</code>
+
+----
+
+## Generar archivos de conjuntos de batallas de tamaño "n"
+
+<code>python pruebas_tiempo_algoritmo.py VALOR_N_ENTERO</code>
