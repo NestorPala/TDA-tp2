@@ -21,6 +21,16 @@ def indice_elemento_maximo(lista):
     return indice_maximo
 
 
+def beautify_solucion(indices_solucion, cantidad_oleadas_enemigos):
+    beautified = []
+    for i in range(1, cantidad_oleadas_enemigos + 1):
+        if i in indices_solucion:
+            beautified.append("Atacar")
+        else:
+            beautified.append("Cargar")
+    return beautified
+
+
 def reconstruir_solucion(memo):
     enemigos_eliminados = max(memo[len(memo) - 1])
     solucion = [ len(memo), ]
@@ -69,21 +79,23 @@ def tp2_dp(lista_xi, lista_fj):
 
 def tp2(x, f):
     memo = tp2_dp(x, f)
+    cantidad_oleadas_enemigos = len(x)
 
     print(memo)
 
-    enemigos_eliminados, orden_recargar_atacar = reconstruir_solucion(memo)
+    enemigos_eliminados, indices_solucion = reconstruir_solucion(memo)
+    orden_recargar_atacar = beautify_solucion(indices_solucion, cantidad_oleadas_enemigos)
     return enemigos_eliminados, orden_recargar_atacar
 
 
 def main():
     # 1413 ok
-    # x = [271,533,916,656, 664]
-    # f = [ 21,671,749,833,1543]
+    x = [271,533,916,656, 664]
+    f = [ 21,671,749,833,1543]
 
     # 2118 ok
-    x = [254,515, 647, 454, 126, 406,  69,  48, 781, 920]
-    f = [170,312,1000,2131,2975,3026,3035,3402,3463,3496]
+    # x = [254,515, 647, 454, 126, 406,  69,  48, 781, 920]
+    # f = [170,312,1000,2131,2975,3026,3035,3402,3463,3496]
 
     enemigos_eliminados, orden_recargar_atacar = tp2(x, f)
 
