@@ -81,26 +81,36 @@ def tp2(x, f):
     memo = tp2_dp(x, f)
     cantidad_oleadas_enemigos = len(x)
 
-    print(memo)
-
     enemigos_eliminados, indices_solucion = reconstruir_solucion(memo)
     orden_recargar_atacar = beautify_solucion(indices_solucion, cantidad_oleadas_enemigos)
+
     return enemigos_eliminados, orden_recargar_atacar
 
 
-def main():
-    # 1413 ok
-    x = [271,533,916,656, 664]
-    f = [ 21,671,749,833,1543]
+def tp2_batallas_solver(file_path):
+    with open(file_path, 'r') as file:
+        lines = file.readlines()[1:]
+        
+    n = int(lines[0].strip())
+    x_values = [int(x.strip()) for x in lines[1:n+1]]
+    function_values = [int(x.strip()) for x in lines[n+1:]]
 
-    # 2118 ok
-    # x = [254,515, 647, 454, 126, 406,  69,  48, 781, 920]
-    # f = [170,312,1000,2131,2975,3026,3035,3402,3463,3496]
-
-    enemigos_eliminados, orden_recargar_atacar = tp2(x, f)
-
-    print("Enemigos eliminados: ", enemigos_eliminados)
-    print("Orden de recarga/ataque: ", orden_recargar_atacar)
+    return tp2(x_values, function_values)
 
 
-main()
+# def main():
+#     # 1413 ok
+#     x = [271,533,916,656, 664]
+#     f = [ 21,671,749,833,1543]
+
+#     # 2118 ok
+#     # x = [254,515, 647, 454, 126, 406,  69,  48, 781, 920]
+#     # f = [170,312,1000,2131,2975,3026,3035,3402,3463,3496]
+
+#     enemigos_eliminados, orden_recargar_atacar = tp2(x, f)
+
+#     print("Enemigos eliminados: ", enemigos_eliminados)
+#     print("Orden de recarga/ataque: ", orden_recargar_atacar)
+
+
+# main()
