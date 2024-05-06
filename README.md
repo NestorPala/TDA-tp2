@@ -17,4 +17,4 @@
 
 ## Ejecutar las pruebas de tiempo del algoritmo
 
-<code>python pruebas_tiempo_algoritmo.py</code>
+<code>python pruebas_tiempo_algoritmo.py NUMERO_DE_BATALLAS.txt</code>
