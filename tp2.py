@@ -1,3 +1,4 @@
+import math
 import sys
 
 
@@ -50,23 +51,21 @@ def reconstruir_solucion(memo):
 def tp2_dp(lista_xi, lista_fj):
     n = len(lista_xi)
     OPT = inicializar_memo(n)
+    maximos_batallas_anteriores = []
 
     for minuto_actual in range(1, n+1):
-        for minuto_origen in range(n):
+        maximo_batalla_actual = -math.inf
 
+        for minuto_origen in range(n):
             if minuto_actual <= minuto_origen:
                 continue
-
+            
             if minuto_origen == 0:
-                no_usar_opt = True
+                maximo_batallas_anteriores = 0
+            else:
+                maximo_batallas_anteriores = maximos_batallas_anteriores[minuto_origen - 1]
 
             minuto_actual_ = minuto_actual - 1
-
-            if no_usar_opt:
-                maximo_batallas_anteriores = 0
-                no_usar_opt = False
-            else:
-                maximo_batallas_anteriores = max(OPT[minuto_origen - 1][:])
 
             j = minuto_actual_ - minuto_origen
             ataque_actual = min(lista_xi[minuto_actual_], lista_fj[j])
@@ -74,8 +73,16 @@ def tp2_dp(lista_xi, lista_fj):
             # ecuacion de recurrencia: OPT[i][j] = max(OPT[i-1][k] ∀ k ∈ {0,...,j-1}) + min(X[i], f(j))
             # X = lista de cantidad enemigos en el minuto i ("lista_xi")
             # f = función de recarga ("lista_fj")
+            abatidos_batalla_actual = maximo_batallas_anteriores + ataque_actual
+            OPT[minuto_actual_][minuto_origen] = abatidos_batalla_actual
 
-            OPT[minuto_actual_][minuto_origen] = maximo_batallas_anteriores + ataque_actual
+            # optimización O(n^3) -> O(n^2): 
+            # guardo el valor de la rama de valor máximo para cada minuto 
+            # al mismo tiempo que proceso los minutos en la matriz
+            if abatidos_batalla_actual > maximo_batalla_actual:
+                maximo_batalla_actual = abatidos_batalla_actual
+        
+        maximos_batallas_anteriores.append(maximo_batalla_actual)
 
     return OPT
 
