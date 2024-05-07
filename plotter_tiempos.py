@@ -13,6 +13,14 @@ y3 = [0.00099754333496093750, 0.00000000000000000000, 0.00099873542785644531,
         0.00100183486938476562, 0.00507354736328125000, 0.01508188247680664062,
         0.08023452758789062500, 0.24034714698791503906]
 
+# Pruebas propias - O(n^2)
+x2p = [100, 200, 500, 1000, 5000, 10000]
+y2p = [0.003124237060546875, 0.008704662322998047, 0.060161590576171875,
+	0.247664213180542, 6.130439043045044, 24.141527891159058]
+
+
+#--------------------------------------
+
 
 plt.scatter(x2, y2)
 
@@ -32,6 +40,21 @@ plt.show()
 plt.scatter(x3, y3)
 
 plt.plot(x3, y3, color='blue', linestyle='-', linewidth=1)
+
+plt.xlabel('Cantidad de batallas')
+plt.ylabel('Tiempo en segundos')
+plt.title('Tiempo de ejecución del algoritmo en funcion de los datos de entrada\n \
+          (Algoritmo O(n^2))')
+
+plt.show()
+
+
+#--------------------------------------
+
+
+plt.scatter(x2p, y2p)
+
+plt.plot(x2p, y2p, color='blue', linestyle='-', linewidth=1)
 
 plt.xlabel('Cantidad de batallas')
 plt.ylabel('Tiempo en segundos')
