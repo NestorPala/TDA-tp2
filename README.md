@@ -9,13 +9,15 @@
 
 ## Probar el TP2 con un archivo de pruebas de "n" batallas
 
+El archivo tiene que estar en la misma carpeta que tp2.py
+
 <code>python tp2.py NUMERO_DE_BATALLAS.txt</code>
 
 ----
 
 ## Ejecutar tests de la cátedra
 
-Se corren tambien las pruebas de tiempo.
+Se corren junto con las pruebas de tiempo. 
 
 <code>python ejecutar_tests_catedra.py</code>
 
@@ -23,7 +25,7 @@ Se corren tambien las pruebas de tiempo.
 
 ## Ejecutar las pruebas de tiempo del algoritmo
 
-Estas pruebas se pueden correr para cualquier archivo de batallas.
+Estas pruebas se pueden correr para cualquier archivo de batallas. El archivo tiene que estar en la misma carpeta que tp2.py
 
 <code>python pruebas_tiempo_algoritmo.py NUMERO_DE_BATALLAS.txt</code>
 
@@ -31,4 +33,4 @@ Estas pruebas se pueden correr para cualquier archivo de batallas.
 
 ## Generar archivo de conjunto de batallas de tamaño "n"
 
-<code>python pruebas_tiempo_algoritmo.py VALOR_N_ENTERO</code>
+<code>python generator.py VALOR_N_ENTERO</code>

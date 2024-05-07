@@ -42,5 +42,7 @@ def main():
     x, f = generate_arrays(n, a, b, c, d)
     write_to_file(x, f, f'{n}.txt')
 
+    print("Archivo generado con éxito!")
+
 
 main()
