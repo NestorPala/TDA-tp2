@@ -11,11 +11,11 @@ USO = f"""
 
     El archivo tiene que estar en la misma carpeta que tp2.py:
 
-        python tp2.py {FILE_OPTION} NUMERO_DE_BATALLAS.txt
+        python file.py {FILE_OPTION} NUMERO_DE_BATALLAS.txt
 
     El archivo puede estar en cualquier ruta:
 
-        python tp2.py {ABS_OPTION} PATH_TO_/NUMERO_DE_BATALLAS.txt
+        python file.py {ABS_OPTION} PATH_TO_/NUMERO_DE_BATALLAS.txt
 """
 
 
