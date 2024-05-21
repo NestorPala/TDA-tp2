@@ -1,5 +1,22 @@
 import math
+import os
 import sys
+
+
+FILE_OPTION = "-file"
+ABS_OPTION = "-abs"
+
+USO = f"""
+    Uso del programa:
+
+    El archivo tiene que estar en la misma carpeta que tp2.py:
+
+        python tp2.py {FILE_OPTION} NUMERO_DE_BATALLAS.txt
+
+    El archivo puede estar en cualquier ruta:
+
+        python tp2.py {ABS_OPTION} PATH_TO_/NUMERO_DE_BATALLAS.txt
+"""
 
 
 def beautify_solucion(indices_solucion, cantidad_oleadas_enemigos):
@@ -79,7 +96,9 @@ def tp2_batallas_solver(file_path):
     return tp2(x_values, function_values)
 
 
-def escribir_resultados(filename, enemigos_eliminados, orden_recargar_atacar):
+def escribir_resultados(file_path, enemigos_eliminados, orden_recargar_atacar):
+    filename = os.path.basename(file_path)
+    
     with open(f"solved_{filename}", 'w+') as resultados_file:
         resultados_file.write(filename)
 
@@ -96,17 +115,23 @@ def escribir_resultados(filename, enemigos_eliminados, orden_recargar_atacar):
 
 
 def main():
-    if len(sys.argv) != 2:
-        print("Ejemplo de uso: python3 tp2.py 500.txt")
+    if len(sys.argv) != 3:
+        print(USO)
         return
     
-    path = sys.argv[1]
-    filename = path.split(".")[0] + ".txt"
+    if (sys.argv[1] == FILE_OPTION):
+        path = sys.argv[2]
+    elif(sys.argv[1] == ABS_OPTION):
+        path = os.path.normpath(sys.argv[2])
+    else:
+        print(USO)
+        return
     
     enemigos_eliminados, orden_recargar_atacar = tp2_batallas_solver(path)
 
-    escribir_resultados(filename, enemigos_eliminados, orden_recargar_atacar)
+    escribir_resultados(path, enemigos_eliminados, orden_recargar_atacar)
 
+    filename = os.path.basename(path)
     print("\nArchivo procesado con éxito!")
     print(f"Los resultados se encuentran en el archivo solved_{filename}")
 
