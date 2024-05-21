@@ -1,28 +1,5 @@
 import math
 import sys
-import os
-
-def inicializar_memo(n):
-    memo = []
-    z = -1
-    for i in range(n):
-        memo.append([])
-        z += 1
-        for j in range(n):
-            memo[z].append(0)
-    return memo
-
-
-def indice_elemento_maximo(lista):
-    maximo = lista[0]
-    indice_maximo = 0
-
-    for i in range(len(lista)):
-        if lista[i] > maximo:
-            maximo = lista[i]
-            indice_maximo = i
-
-    return indice_maximo
 
 
 def beautify_solucion(indices_solucion, cantidad_oleadas_enemigos):
@@ -36,12 +13,12 @@ def beautify_solucion(indices_solucion, cantidad_oleadas_enemigos):
 
 
 def reconstruir_solucion(memo):
-    enemigos_eliminados = max(memo[len(memo) - 1])
+    enemigos_eliminados = memo[len(memo) - 1][0]
     solucion = [ len(memo), ]
    
     indice = len(memo)
     while indice > 0:
-        indice = indice_elemento_maximo(memo[indice - 1])
+        indice = memo[indice - 1][1]
         if indice > 0:
             solucion.append(indice)
 
@@ -50,11 +27,13 @@ def reconstruir_solucion(memo):
 
 def tp2_dp(lista_xi, lista_fj):
     n = len(lista_xi)
-    OPT = inicializar_memo(n)
-    maximos_batallas_anteriores = []
+
+    # Maximos batallas anteriores
+    OPT = []
 
     for minuto_actual in range(1, n+1):
         maximo_batalla_actual = -math.inf
+        minuto_maximo_batalla_actual = 0
 
         for minuto_origen in range(n):
             if minuto_actual <= minuto_origen:
@@ -63,26 +42,18 @@ def tp2_dp(lista_xi, lista_fj):
             if minuto_origen == 0:
                 maximo_batallas_anteriores = 0
             else:
-                maximo_batallas_anteriores = maximos_batallas_anteriores[minuto_origen - 1]
+                maximo_batallas_anteriores = OPT[minuto_origen - 1][0]
 
-            minuto_actual_ = minuto_actual - 1
+            j = (minuto_actual - 1) - minuto_origen
+            ataque_actual = min(lista_xi[minuto_actual - 1], lista_fj[j])
 
-            j = minuto_actual_ - minuto_origen
-            ataque_actual = min(lista_xi[minuto_actual_], lista_fj[j])
-
-            # ecuacion de recurrencia: OPT[i][j] = max(OPT[i-1][k] ∀ k ∈ {0,...,j-1}) + min(X[i], f(j))
-            # X = lista de cantidad enemigos en el minuto i ("lista_xi")
-            # f = función de recarga ("lista_fj")
             abatidos_batalla_actual = maximo_batallas_anteriores + ataque_actual
-            OPT[minuto_actual_][minuto_origen] = abatidos_batalla_actual
 
-            # optimización O(n^3) -> O(n^2): 
-            # guardo el valor de la rama de valor máximo para cada minuto 
-            # al mismo tiempo que proceso los minutos en la matriz
             if abatidos_batalla_actual > maximo_batalla_actual:
                 maximo_batalla_actual = abatidos_batalla_actual
+                minuto_maximo_batalla_actual = minuto_origen
         
-        maximos_batallas_anteriores.append(maximo_batalla_actual)
+        OPT.append((maximo_batalla_actual, minuto_maximo_batalla_actual))
 
     return OPT
 
@@ -97,18 +68,7 @@ def tp2(x, f):
     return enemigos_eliminados, orden_recargar_atacar
 
 
-def tp2_batallas_solver(file_name):
-    # Definir la ruta base donde se encuentran los archivos
-    ruta_base = 'tests_catedra/data'
-    
-    # Crear la ruta completa al archivo
-    file_path = os.path.join(ruta_base, file_name)
-    
-    # Comprobar si la ruta es absoluta
-    if not os.path.isabs(file_path):
-        # Si la ruta es relativa, convertirla a absoluta
-        file_path = os.path.join(os.getcwd(), file_path)
-    
+def tp2_batallas_solver(file_path):
     with open(file_path, 'r') as file:
         lines = file.readlines()[1:]
         
@@ -117,6 +77,7 @@ def tp2_batallas_solver(file_name):
     function_values = [int(x.strip()) for x in lines[n+1:]]
 
     return tp2(x_values, function_values)
+
 
 def escribir_resultados(filename, enemigos_eliminados, orden_recargar_atacar):
     with open(f"solved_{filename}", 'w+') as resultados_file:
