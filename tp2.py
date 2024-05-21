@@ -1,6 +1,6 @@
 import math
 import sys
-
+import os
 
 def inicializar_memo(n):
     memo = []
@@ -97,7 +97,18 @@ def tp2(x, f):
     return enemigos_eliminados, orden_recargar_atacar
 
 
-def tp2_batallas_solver(file_path):
+def tp2_batallas_solver(file_name):
+    # Definir la ruta base donde se encuentran los archivos
+    ruta_base = 'tests_catedra/data'
+    
+    # Crear la ruta completa al archivo
+    file_path = os.path.join(ruta_base, file_name)
+    
+    # Comprobar si la ruta es absoluta
+    if not os.path.isabs(file_path):
+        # Si la ruta es relativa, convertirla a absoluta
+        file_path = os.path.join(os.getcwd(), file_path)
+    
     with open(file_path, 'r') as file:
         lines = file.readlines()[1:]
         
@@ -106,7 +117,6 @@ def tp2_batallas_solver(file_path):
     function_values = [int(x.strip()) for x in lines[n+1:]]
 
     return tp2(x_values, function_values)
-
 
 def escribir_resultados(filename, enemigos_eliminados, orden_recargar_atacar):
     with open(f"solved_{filename}", 'w+') as resultados_file:
