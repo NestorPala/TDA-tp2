@@ -48,29 +48,36 @@ def tp2_dp(lista_xi, lista_fj):
     # Maximos batallas anteriores
     OPT = []
 
-    for minuto_actual in range(1, n+1):
+    for minuto_actual in range(1, n+1):     # i
         maximo_batalla_actual = -math.inf
         minuto_maximo_batalla_actual = 0
 
-        for minuto_origen in range(n):
+        for minuto_origen in range(n):              # j
             if minuto_actual <= minuto_origen:
                 continue
             
             if minuto_origen == 0:
-                maximo_batallas_anteriores = 0
+                maximo_batallas_anteriores = 0          # OPT[0] = 0
             else:
                 maximo_batallas_anteriores = OPT[minuto_origen - 1][0]
 
-            j = (minuto_actual - 1) - minuto_origen
-            ataque_actual = min(lista_xi[minuto_actual - 1], lista_fj[j])
+            k = (minuto_actual - 1) - minuto_origen                             # k
+            ataque_actual = min(lista_xi[minuto_actual - 1], lista_fj[k])
 
-            abatidos_batalla_actual = maximo_batallas_anteriores + ataque_actual
+            abatidos_batalla_actual = ataque_actual + maximo_batallas_anteriores    # b(j)
 
             if abatidos_batalla_actual > maximo_batalla_actual:
                 maximo_batalla_actual = abatidos_batalla_actual
                 minuto_maximo_batalla_actual = minuto_origen
+            
+        #     print(f"i: {minuto_actual}  /  j: {minuto_origen}  /  k: {k}  /  OPT[{minuto_actual - 1}] = min({lista_xi[minuto_actual - 1]}, {lista_fj[k]}) + {maximo_batallas_anteriores} = {maximo_batalla_actual}")
+        
+        # print(f"max(b(j)) = {maximo_batalla_actual}")
         
         OPT.append((maximo_batalla_actual, minuto_maximo_batalla_actual))
+        
+        # print("OPT =", OPT)
+        # print()
 
     return OPT
 
